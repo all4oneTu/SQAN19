@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+<body>
+<div >
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Trang Chủ</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/registerSchedule">Đăng Kí Dạy <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/schedule">Xem TKB</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/teacherInfo">Chỉnh Sửa TT Cá Nhân</a>
+                </li>
+                <li class="nav-item mg-lg-0 mr-sm-2">
+                    <a class="nav-link" href="#">Đăng Xuất</a>
+                </li>
+            </ul>
+            <span class="navbar-text">
+          Xin Chào <span th:text="${username}"></span>
+      </span>
+        </div>
+    </nav>
+</div>
+    <div class="container">
+        <form th:action="@{/registerSchedule}" method="post">
+        <table class="table table-bordered mt-lg-5">
+            <thead>
+            <tr>
+                <th scope="col">Thời Gian</th>
+                <th scope="col">Tiết Bắt Đầu</th>
+                <th scope="col">Số tiết dạy</th>
+                <th scope="col">Phòng</th>
+                <th scope="col">Loại</th>
+                <th scope="col">Thực Hiện</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <input class="form-control" type="date" id="date" name="date" placeholder="mm/dd /yyyy">
+                </td>
+                <td>
+                    <select id="timeStart" class="custom-select" name="timeStart">
+                        <option selected>Choose...</option>
+                        <option>1 (7h-9h)</option>
+                        <option>3 (9h-11h)</option>
+                        <option>5 (12h-14h)</option>
+                        <option>7 (14h-16h)</option>
+                        <option>9 (16h-18h)</option>
+                        <option>11 (18h-20h)</option>
+                    </select>
+                </td>
+                <td>
+                    <select id="lesson" class="custom-select" name="lesson">
+                        <option selected>Choose...</option>
+                        <option>2 tiết</option>
+                        <option>4 tiết</option>
+                    </select>
+                </td>
+                <td>
+                    <select id="classroom" class="custom-select" name="classroom">
+                        <option selected>Choose...</option>
+                        <option>302-A2</option>
+                        <option>402-A2</option>
+                        <option>502-A2</option>
+                        <option>602-A2</option>
+                        <option>201-A3</option>
+                        <option>205-A3</option>
+                    </select>
+                </td>
+                <td>
+                    <select id="type" class="custom-select" name="type">
+                        <option selected>Choose...</option>
+                        <option>Lý Thuyết</option>
+                        <option>Lý Thuyết + Thực Hành</option>
+                    </select>
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-primary">Đăng Kí</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        </form>
+        <p class="text-uppercase text-primary mt-lg-5">XEM ĐĂNG KÝ </p>
+        <table class="table table-bordered mt-lg-2" >
+            <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Thời Gian</th>
+                <th scope="col">Tiết Bắt Đầu</th>
+                <th scope="col">Số Tiết</th>
+                <th scope="col">Phòng</th>
+                <th scope="col">Loại</th>
+                <th scope="col">Trạng Thái</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="schedule, index : ${schedules}">
+                <td th:text="${index.index + 1}"></td>
+                <td th:text="${schedule.getDate()}"></td>
+                <td th:text="${schedule.getTimeStart()}"></td>
+                <td th:text="${schedule.getLesson()}"></td>
+                <td th:text="${schedule.getRoom()}"></td>
+                <td th:text="${schedule.getType()}"></td>
+                <td >
+                    <div th:if="${schedule.getIsSubstitute() == 'yes' }" class="d-inline p-2 bg-success text-white rounded">Được Chấp Nhận</div>
+                    <div th:if="${schedule.getIsSubstitute() == 'no'}" class="d-inline p-2 bg-danger text-white rounded">Chưa Được Chấp Nhận</div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

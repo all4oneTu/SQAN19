@@ -16,21 +16,32 @@ public class TeacherInfoEntity {
     private String phone;
     @Column(name = "address")
     private String address;
-
     @OneToOne
     @JoinColumn(name = "teacher_id")
     private TeacherEntity teacherEntity;
 
+    @ManyToOne
+    @JoinColumn(name = "subject_id")
+    private SubjectEntity subjectEntity;
     public TeacherInfoEntity() {
     }
 
-    public TeacherInfoEntity(Long id, String name, String email, String phone, String address, TeacherEntity teacherEntity) {
+    public TeacherInfoEntity(Long id, String name, String email, String phone, String address, TeacherEntity teacherEntity, SubjectEntity subjectEntity) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.address = address;
         this.teacherEntity = teacherEntity;
+        this.subjectEntity = subjectEntity;
+    }
+
+    public SubjectEntity getSubjectEntity() {
+        return subjectEntity;
+    }
+
+    public void setSubjectEntity(SubjectEntity subjectEntity) {
+        this.subjectEntity = subjectEntity;
     }
 
     public Long getId() {
@@ -72,6 +83,7 @@ public class TeacherInfoEntity {
     public void setAddress(String address) {
         this.address = address;
     }
+
 
     public TeacherEntity getTeacherEntity() {
         return teacherEntity;

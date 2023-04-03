@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+<body>
+<div >
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Trang Chủ</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/registerSchedule">Đăng Kí Dạy <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/schedule">Xem TKB</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/teacherInfo">Chỉnh Sửa TT Cá Nhân</a>
+                </li>
+                <li class="nav-item mg-lg-0 mr-sm-2">
+                    <a class="nav-link" href="#">Đăng Xuất</a>
+                </li>
+            </ul>
+            <span class="navbar-text">
+          Xin Chào <span th:text="${username}"></span>
+      </span>
+        </div>
+    </nav>
+</div>
+
+        <div class="container">
+            <h5 class="font-weight-bold mt-lg-5">Hôm Nay : 3/15/2023</h5>
+            <table class="table table-bordered mt-lg-1" >
+                <thead>
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Thời Gian</th>
+                    <th scope="col">Tiết Bắt Đầu</th>
+                    <th scope="col">Số Tiết</th>
+                    <th scope="col">Phòng</th>
+                    <th scope="col">Loại</th>
+                    <th scope="col">Ghi Chú</th>
+                    <th scope="col">Tình Trạng</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="schedule, index : ${schedules}" th:if="${schedule.getIsSubstitute() == 'yes' }">
+                    <td th:text="${index.index + 1}"></td>
+                    <td th:text="${schedule.getDate()}"></td>
+                    <td th:text="${schedule.getTimeStart()}"></td>
+                    <td th:text="${schedule.getLesson()}"></td>
+                    <td th:text="${schedule.getRoom()}"></td>
+                    <td th:text="${schedule.getType()}"></td>
+                   <td>
+                       <input class="border border-success" placeholder="Ghi chú"/>
+                   </td>
+                    <td>
+                        <button class="btn btn-success">Đã Hoàn Thành</button>
+                        <button class="btn btn-danger">Chưa Hoàn Thành</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+</body>
+</html>

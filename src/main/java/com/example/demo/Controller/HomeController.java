@@ -23,7 +23,6 @@ public class HomeController {
     public String home(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
         TeacherEntity teacherEntity = (TeacherEntity) session.getAttribute("teacher");
-        System.out.println(teacherEntity.getUsername());
         model.addAttribute("username", teacherEntity.getUsername());
         return "home";
     }

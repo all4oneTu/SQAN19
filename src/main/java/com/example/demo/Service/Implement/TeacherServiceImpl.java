@@ -1,11 +1,12 @@
-package com.example.demo.Service;
+package com.example.demo.Service.Implement;
 
 import com.example.demo.Entity.TeacherEntity;
 import com.example.demo.Repository.TeacherRepository;
+import com.example.demo.Service.TeacherService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TeacherServiceImpl implements TeacherService{
+public class TeacherServiceImpl implements TeacherService {
     private TeacherRepository teacherRepository;
 
     public TeacherServiceImpl(TeacherRepository teacherRepository) {

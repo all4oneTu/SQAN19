@@ -31,8 +31,11 @@
         <div th:if="${param.logout}">
           <div class="alert alert-info">You have been logged out.</div>
         </div>
-        <div th:if="${error}" role="alert">
-          <p >sai</p>
+        <div th:if="${error}" role="alert" class="alert alert-danger alert-dismissible fade show">
+          <p th:text="${error}"></p>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class = "form-group">
           <label for ="username"> Username </label> :
@@ -62,4 +65,8 @@
     </div>
   </div>
 </div>
+<script>
+  // Đoạn mã JavaScript của bạn ở đây
+  $('.alert').alert('close')
+</script>
 </body>

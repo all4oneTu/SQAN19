@@ -28,5 +28,10 @@ public class ScheduleServiceImpl implements ScheduleService {
         return scheduleRepository.findAllByTeacherInfoEntity(teacherInfoEntity);
     }
 
+    @Override
+    public ScheduleEntity findById(Long id) {
+        return scheduleRepository.findById(id).get();
+    }
+
 
 }

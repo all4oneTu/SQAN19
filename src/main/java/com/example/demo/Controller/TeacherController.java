@@ -7,9 +7,7 @@ import com.example.demo.Service.TeacherService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -83,19 +81,30 @@ public class TeacherController {
     }
 
     @GetMapping("/register")
-    public String register() {
+    public String register(String username, String password) {
         return "register";
     }
 
     @PostMapping("/register")
-    public String register(@RequestParam String username, @RequestParam String password) {
-        if (checkUsername(username) != null) {
-            return "redirect:/login";
+    public String register(@RequestParam String username, @RequestParam String password, Model model) {
+        System.out.println("username: " + username);
+        System.out.println("password: " + password);
+        String checkUsername = checkUsername(username);
+        String checkPassword = checkPassword(password);
+       if (checkUsername != null) {
+            model.addAttribute("error", checkUsername);
+            return "register";
+        }
+        if (checkPassword != null) {
+            model.addAttribute("error", checkPassword);
+            return "register";
+        }
+        if (teacherService.findByUsername(username) != null) {
+            model.addAttribute("error", "username is already exist");
+            System.out.println("username is already exist");
+            return "register";
         }
 
-        if (checkPassword(password) != null) {
-            return "redirect:/login";
-        }
         TeacherEntity teacherEntity = new TeacherEntity();
         TeacherInfoEntity teacherInfoEntity = new TeacherInfoEntity();
         teacherEntity.setUsername(username);

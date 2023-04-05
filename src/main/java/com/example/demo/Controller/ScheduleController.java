@@ -12,16 +12,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class ScheduleController {
 
     private ScheduleService scheduleService;
     private TeacherInfoService teacherInfoService;
+
+    private Date date = new Date();
 
     public ScheduleController(ScheduleService scheduleService, TeacherInfoService teacherInfoService) {
         super();
@@ -38,8 +37,13 @@ public class ScheduleController {
         Collections.sort(schedules,
                 Comparator.comparing(ScheduleEntity::getDate)
                         .thenComparing(ScheduleEntity::getTimeStart));
-        model.addAttribute("schedules", schedules);
         model.addAttribute("username", teacherEntity.getUsername());
+        if (schedules.size() == 0) {
+            model.addAttribute("message", "No schedule");
+        } else {
+            model.addAttribute("schedules", schedules);
+        }
+        model.addAttribute("date", date);
         return "schedule";
     }
 

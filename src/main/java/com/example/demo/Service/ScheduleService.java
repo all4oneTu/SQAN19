@@ -8,5 +8,5 @@ import java.util.List;
 public interface ScheduleService {
     ScheduleEntity createSchedule(ScheduleEntity scheduleEntity);
     List<ScheduleEntity> findAllByTeacherInfoEntity(TeacherInfoEntity teacherInfoEntity);
-
+    ScheduleEntity findById(Long id);
 }

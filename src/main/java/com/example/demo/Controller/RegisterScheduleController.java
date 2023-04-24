@@ -10,8 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -54,4 +53,16 @@ public class RegisterScheduleController {
         scheduleService.createSchedule(scheduleEntity);
         return "redirect:/registerSchedule";
     }
+    @PostMapping("/registerSchedule/update")
+    public String updateSchedule(@RequestParam (name = "id") String id , @ModelAttribute ScheduleEntity schedule) {
+        // Lấy thông tin từ form và cập nhật thông tin schedule trong database
+        // ...
+        //get ScheduleEntity by id
+        ScheduleEntity scheduleEntity = scheduleService.getScheduleEntityById(Long.valueOf(id));
+        scheduleEntity.setIsSubstitute("yes");
+        scheduleService.updateSchedule(scheduleEntity);
+
+        return "redirect:/registerSchedule"; // Chuyển hướng về trang danh sách schedule
+    }
+
 }

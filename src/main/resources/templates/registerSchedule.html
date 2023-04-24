@@ -122,11 +122,22 @@
                 <td th:text="${schedule.getType()}"></td>
                 <td >
                     <div th:if="${schedule.getIsSubstitute() == 'yes' }" class="d-inline p-2 bg-success text-white rounded">Được Chấp Nhận</div>
-                    <div th:if="${schedule.getIsSubstitute() == 'no'}" class="d-inline p-2 bg-danger text-white rounded">Chưa Được Chấp Nhận</div>
+                    <form th:action="@{/registerSchedule/update}" method="post" >
+                        <div th:if="${schedule.getIsSubstitute() == 'no'}" class=" p-1 bg-danger text-white rounded">
+                            <input type="hidden" th:value="${schedule.getId()}" name="id" th:attr="data-id=${schedule.id}">
+                            <button type="submit" class="btn btn-danger">Chưa được chấp nhận</button>
+                        </div>
+                    </form>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
+<script th:inline="javascript">
+    $(document).ready(function() {
+        var id = $("input[name=id]").attr("data-id");
+        $("input[name=id]").attr("value", id);
+    });
+</script>
 </body>
 </html>

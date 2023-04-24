@@ -42,6 +42,10 @@ public class TeacherController {
             model.addAttribute("user", "admin");
             return "redirect:/";
         }
+        if (teacherService.findByUsername(username) == null) {
+            model.addAttribute("error", "Invalid username or password");
+            return "login";
+        }
         if (teacherService.findByUsername(username.trim())
                 .getPassword().equals(password.trim())) {
             TeacherEntity teacherEntity = teacherService.findByUsername(username);

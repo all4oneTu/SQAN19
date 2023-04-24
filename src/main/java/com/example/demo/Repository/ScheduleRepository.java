@@ -12,4 +12,5 @@ public interface ScheduleRepository extends JpaRepository<ScheduleEntity, Long> 
 
    List<ScheduleEntity> getScheduleEntitiesByTeacherInfoEntity(TeacherInfoEntity teacherInfoEntity);
     List<ScheduleEntity> findAllByTeacherInfoEntity(TeacherInfoEntity teacherInfoEntity);
+    ScheduleEntity getScheduleEntityById(Long id);
 }

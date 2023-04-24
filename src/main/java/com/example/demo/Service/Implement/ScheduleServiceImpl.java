@@ -33,5 +33,15 @@ public class ScheduleServiceImpl implements ScheduleService {
         return scheduleRepository.findById(id).get();
     }
 
+    @Override
+    public ScheduleEntity getScheduleEntityById(Long id) {
+        return scheduleRepository.getScheduleEntityById(id);
+    }
+
+    @Override
+    public ScheduleEntity updateSchedule(ScheduleEntity scheduleEntity) {
+        return scheduleRepository.save(scheduleEntity);
+    }
+
 
 }

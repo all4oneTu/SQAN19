@@ -32,7 +32,7 @@ class Demo1ApplicationTests {
 
     private Connection getConnection() {
         String usernameDb = "root";
-        String passwordDb = "1234";
+        String passwordDb = "123456";
         String serverName = "localhost";
         int portNumber = 3306;
         String dbName = "teacher";
@@ -382,7 +382,7 @@ class Demo1ApplicationTests {
     void testLogin_RequiredLength7(){
         String username =" 123456";
         String password= "12345678";
-        String expected = "redirect:/home";
+        String expected = "redirect:/";
         ConcurrentModel model = new ConcurrentModel();
         MockHttpServletRequest request = new MockHttpServletRequest();
 
@@ -397,7 +397,7 @@ class Demo1ApplicationTests {
         // Arrange
         String username = "test";
         String password = "1234";
-        String expected = "redirect:/home";
+        String expected = "login";
 
         ConcurrentModel model = new ConcurrentModel();
         MockHttpServletRequest request = new MockHttpServletRequest();
@@ -504,7 +504,22 @@ class Demo1ApplicationTests {
         // Assert
         Assertions.assertEquals(expected, actual);
     }
+    @Test
+    void testLoginSucces(){
+        // Arrange
+        String username = "macxenso01";
+        String password = "12345678";
+        String expected = "redirect:/";
 
+        ConcurrentModel model = new ConcurrentModel();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+
+        // Act
+        String actual = teacherController.welcomepage(model, username, password, request);
+
+        // Assert
+        Assertions.assertEquals(expected, actual);
+    }
     // schedule registry
 
     @Rollback
